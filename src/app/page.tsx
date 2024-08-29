@@ -1,19 +1,18 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-import { Submenu } from "./components/home/submenu";
-import { HomeProps } from "./utils/home.type";
-
-import { getDataHome } from "./utils/actions/get-data";
-import { Hero } from "./components/hero";
+import { Submenu } from "@/app/components/home/submenu";
+import { getDataHome } from "@/app/utils/actions/get-data";
+import { HomeProps } from "@/app/utils/home.type";
+import { Hero } from "@/app/components/hero";
 import { Phone } from "lucide-react";
+import { Services } from "@/app/components/home/services";
+import { Container } from "@/app/components/container";
 
 export default async function Home() {
   const { object }: HomeProps = await getDataHome();
-  console.log(object.title);
 
   return (
     <main>
       <Submenu />
+
       <Hero
         heading={object.metadata.heading}
         buttonTitle={object.metadata.cta_button.title}
@@ -21,6 +20,10 @@ export default async function Home() {
         bannerUrl={object.metadata.banner.url}
         icon={<Phone size={24} color="#FFF" />}
       />
+
+      <Container>
+        <Services object={object} />
+      </Container>
     </main>
   );
 }
